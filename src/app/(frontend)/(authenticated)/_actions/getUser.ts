@@ -1,4 +1,4 @@
-'user server'
+"use server"
 
 import { headers as getHeders } from 'next/headers'
 import { getPayload } from 'payload'

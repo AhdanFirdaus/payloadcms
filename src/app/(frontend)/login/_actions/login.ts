@@ -3,7 +3,6 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 import { cookies } from 'next/headers'
 import { Customer } from '@/payload-types'
-import { Result } from 'node_modules/payload/dist/auth/operations/refresh'
 
 export interface LoginParams {
   email: string
@@ -33,7 +32,7 @@ export async function login({ email, password }: LoginParams): Promise<LoginResp
     })
     if (result.token) {
       const cookieStore = await cookies()
-      cookieStore.set('payloadToken', result.token, {
+      cookieStore.set('payload-token', result.token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         path: '/',

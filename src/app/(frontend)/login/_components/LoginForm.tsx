@@ -2,8 +2,8 @@
 
 import { useRouter } from 'next/navigation'
 import React, { ReactElement, useState } from 'react'
-import SubmitButton from '../../components/SubmitButton'
-import { login, type LoginResponse } from '../actions/login' // Pastikan LoginResponse diimpor
+import SubmitButton from '../../_components/SubmitButton'
+import { login, type LoginResponse } from '../_actions/login' // Pastikan LoginResponse diimpor
 
 export default function LoginForm(): ReactElement {
   const [isPending, setIsPending] = useState(false)
@@ -12,28 +12,28 @@ export default function LoginForm(): ReactElement {
 
   // TAMBAHKAN 'async' di depan fungsi ini
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setIsPending(true);
-    setError(null);
+    event.preventDefault()
+    setIsPending(true)
+    setError(null)
 
     try {
-      const formData = new FormData(event.currentTarget);
-      const email = formData.get('email') as string;
-      const password = formData.get('password') as string;
+      const formData = new FormData(event.currentTarget)
+      const email = formData.get('email') as string
+      const password = formData.get('password') as string
 
       // Sekarang await diperbolehkan
-      const result: LoginResponse = await login({ email, password });
+      const result: LoginResponse = await login({ email, password })
 
       if (result.success) {
-        router.push('/dashboard');
+        router.push('/dashboard')
         // Jangan set isPending(false) di sini karena kita akan pindah halaman
       } else {
-        setError(result.error || 'Login failed. Please try again.');
-        setIsPending(false); // Matikan loading jika gagal
+        setError(result.error || 'Login failed. Please try again.')
+        setIsPending(false) // Matikan loading jika gagal
       }
     } catch (e) {
-      setError('An unexpected error occurred.');
-      setIsPending(false);
+      setError('An unexpected error occurred.')
+      setIsPending(false)
     }
   }
 
@@ -44,28 +44,35 @@ export default function LoginForm(): ReactElement {
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-2">
             <label htmlFor="email">Email</label>
-            <input 
-              className="w-full border p-2 rounded" 
-              name="email" 
-              id="email" 
-              type="email" 
-              required 
+            <input
+              className="w-full border p-2 rounded"
+              name="email"
+              id="email"
+              type="email"
+              required
             />
           </div>
           <div className="flex flex-col gap-2 mb-4">
             <label htmlFor="password">Password</label>
-            <input 
-              className="w-full border p-2 rounded" 
-              name="password" 
-              id="password" 
-              type="password" 
-              required 
+            <input
+              className="w-full border p-2 rounded"
+              name="password"
+              id="password"
+              type="password"
+              required
             />
           </div>
           {error && <div className="text-red-500 text-sm">{error}</div>}
           <SubmitButton loading={isPending} text="Login" />
         </form>
+        <p className="mt-10 text-center text-sm text-gray-400">
+          Don't have an account?{' '}
+          <a href="/signup" className="text-blue-500 hover:underline">
+            Sign Up
+          </a>
+        </p>
       </div>
     </div>
   )
-}``
+}
+;``
