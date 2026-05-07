@@ -244,6 +244,15 @@ export interface Course {
         blockName?: string | null;
         blockType: 'video';
       }
+    | {
+        /**
+         * The template to use for the certificate. This should be a valid HTML template.
+         */
+        template: string;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'finish';
+      }
   )[];
   updatedAt: string;
   createdAt: string;
@@ -455,6 +464,13 @@ export interface CoursesSelect<T extends boolean = true> {
               title?: T;
               duration?: T;
               playerURL?: T;
+              id?: T;
+              blockName?: T;
+            };
+        finish?:
+          | T
+          | {
+              template?: T;
               id?: T;
               blockName?: T;
             };

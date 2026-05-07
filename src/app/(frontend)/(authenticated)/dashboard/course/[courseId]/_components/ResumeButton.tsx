@@ -5,7 +5,8 @@ import { HiPlay } from 'react-icons/hi'
 export default function ResumeButton({ participation }: { participation: Participation }) {
   const course: Course = participation.course as Course
   const courseLenght = course.curriculum.length
-  const progress = participation.progress ?? 0
+  let progress = participation.progress ?? 0
+  progress = progress + 1
   const progressPercentage = Math.round((progress / courseLenght) * 100)
 
   return (

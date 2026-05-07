@@ -1,7 +1,7 @@
 "use client"
 
 import { Course } from '@/payload-types'
-import { HiPencilAlt, HiVideoCamera } from 'react-icons/hi'
+import { HiFlag, HiPencilAlt, HiVideoCamera } from 'react-icons/hi'
 
 export default function Curriculum({
   course,
@@ -39,6 +39,17 @@ export default function Curriculum({
                 {block.title}
               </div>
               <div className="text-sm text-gray-400">Questions: {block.questions?.length || 0}</div>
+            </div>
+          )
+        }
+
+        if (block.blockType === 'finish') {
+          return (
+            <div key={index} className={className}>
+              <div className="text-green-400 font-semibbold flex items-center gap-2">
+                <HiFlag className="text-xl" />
+                Certificate
+              </div>
             </div>
           )
         }
