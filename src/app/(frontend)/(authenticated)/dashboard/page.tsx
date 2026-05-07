@@ -3,6 +3,7 @@ import { headers as getHeaders } from 'next/headers.js'
 import { getPayload } from 'payload'
 import React, { Suspense } from 'react'
 import configPromise from '@payload-config'
+import { Media } from '@/payload-types'
 import Image from 'next/image'
 import { Course, Participation } from '@/payload-types'
 import Link from 'next/link'
@@ -22,6 +23,7 @@ const page = async () => {
     let coursesRes = await payload.find({
       collection: 'courses',
       limit: 10,
+      depth: 1,
       overrideAccess: false,
       user: user,
     })
@@ -77,7 +79,11 @@ const page = async () => {
                 className="flex flex-col cursor-pointer relative border border-gray-700 hover:border-white transition ease-in-out duration-100 overflow-hidden"
               >
                 <div className="relative w-full aspect-video">
-                  <Image alt={`${course.title} thumbnail`} src={course.image.url} fill={true} />
+                  <Image
+                    alt={`${course.title} thumbnail`}
+                    src={(course.image as Media).url ?? ''}
+                    fill={true}
+                  />
                 </div>
               </Link>
             )

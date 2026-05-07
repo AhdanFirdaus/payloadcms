@@ -219,6 +219,7 @@ export interface Course {
   id: string;
   title: string;
   description: string;
+  price: number;
   image: string | Media;
   curriculum: (
     | {
@@ -434,6 +435,7 @@ export interface CustomersSelect<T extends boolean = true> {
 export interface CoursesSelect<T extends boolean = true> {
   title?: T;
   description?: T;
+  price?: T;
   image?: T;
   curriculum?:
     | T

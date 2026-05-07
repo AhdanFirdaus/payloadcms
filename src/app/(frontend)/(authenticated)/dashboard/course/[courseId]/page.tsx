@@ -2,6 +2,7 @@ import { getPayload } from 'payload'
 import configPromise from '@/payload.config'
 import { getUser } from '../../../_actions/getUser'
 import { Course } from '@/payload-types'
+import { Media } from '@/payload-types'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { HiArrowLeft, HiPencilAlt, HiVideoCamera } from 'react-icons/hi'
@@ -25,6 +26,7 @@ const CoursePage = async ({ params }: { params: Promise<{ courseId: string }> })
     const res = await payload.findByID({
       collection: 'courses',
       id: courseId,
+      depth: 1,
       overrideAccess: false,
       user: user,
     })
@@ -67,7 +69,7 @@ const CoursePage = async ({ params }: { params: Promise<{ courseId: string }> })
       </Link>
       <div className="relative w-full aspect-video overflow-hidden border border-gray-700">
         <Image
-          src={course.image.url}
+          src={(course.image as Media).url}
           alt={`${course.title} thumbnail`}
           fill
           className="object-cover"
@@ -109,7 +111,11 @@ const CoursePage = async ({ params }: { params: Promise<{ courseId: string }> })
         </div>
       </div>
 
-      {participation ? <ResumeButton participation={participation} /> : <StartCourseButton courseId={course.id} />}
+      {participation ? (
+        <ResumeButton participation={participation} />
+      ) : (
+        <StartCourseButton courseId={course.id} />
+      )}
     </div>
   )
 }
