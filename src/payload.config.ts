@@ -14,6 +14,8 @@ import { Customers } from './collections/Customers'
 import { Courses } from './collections/courses/Courses'
 import brevoAdapter from './utils/brevoAdapter'
 import { Participation } from './collections/courses/Participation'
+import stripeCheckout from './endpoints/stripeCheckout'
+import stripeWebhook from './endpoints/stripeWebhook'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -27,6 +29,7 @@ export default buildConfig({
   },
   email: brevoAdapter(),
   collections: [Users, Media, Customers, Courses, Participation],
+  endpoints: [stripeCheckout, stripeWebhook],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
