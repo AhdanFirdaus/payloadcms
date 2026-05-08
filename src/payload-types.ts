@@ -192,6 +192,10 @@ export interface Media {
  */
 export interface Customer {
   id: string;
+  /**
+   * Disable account without deleting payment history
+   */
+  isActive?: boolean | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -267,6 +271,10 @@ export interface Participation {
   customer: string | Customer;
   course: string | Course;
   progress?: number | null;
+  paymentStatus: 'paid';
+  stripeSessionID: string;
+  stripePaymentIntentID?: string | null;
+  purchasedAt?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -411,6 +419,7 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "customers_select".
  */
 export interface CustomersSelect<T extends boolean = true> {
+  isActive?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -488,6 +497,10 @@ export interface ParticipationSelect<T extends boolean = true> {
   customer?: T;
   course?: T;
   progress?: T;
+  paymentStatus?: T;
+  stripeSessionID?: T;
+  stripePaymentIntentID?: T;
+  purchasedAt?: T;
   updatedAt?: T;
   createdAt?: T;
 }
